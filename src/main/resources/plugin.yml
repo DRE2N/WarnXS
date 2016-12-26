@@ -1,0 +1,10 @@
+name: WarnXS
+main: io.github.dre2n.warnxs.WarnXS
+version: ${project.version}${buildNo}
+author: Daniel Saukel
+description: ${project.description}
+website: ${project.url}
+commands:
+  warnxs:
+    description: Reference command for WarnXS.
+    aliases: [w,wxs,warn]
