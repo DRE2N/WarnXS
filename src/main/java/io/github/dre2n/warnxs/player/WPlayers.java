@@ -45,7 +45,7 @@ public class WPlayers {
      */
     public WPlayer getByPlayer(Player player) {
         for (WPlayer wPlayer : wPlayers) {
-            if (wPlayer.getPlayer() == player) {
+            if (wPlayer.getPlayer().equals(player)) {
                 return wPlayer;
             }
         }

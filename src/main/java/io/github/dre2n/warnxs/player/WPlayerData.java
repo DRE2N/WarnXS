@@ -133,6 +133,9 @@ public class WPlayerData extends BRConfig {
 
     ConfigurationSection serializeReasons() {
         ConfigurationSection config = new YamlConfiguration();
+        if (reasons == null) {
+            reasons = new ArrayList<>();
+        }
         int i = 0;
         for (WReason reason : reasons) {
             config.set(String.valueOf(i), reason.serialize());
