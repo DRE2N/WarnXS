@@ -45,7 +45,7 @@ public class WPlayers {
      */
     public WPlayer getByPlayer(Player player) {
         for (WPlayer wPlayer : wPlayers) {
-            if (wPlayer.getPlayer().equals(player)) {
+            if (wPlayer.getName().equals(player.getName())) {
                 return wPlayer;
             }
         }
@@ -78,7 +78,7 @@ public class WPlayers {
      */
     public void addPlayer(WPlayer player) {
         for (WPlayer wPlayer : wPlayers) {
-            if (player.getPlayer().equals(player.getPlayer())) {
+            if (wPlayer.getName().equals(player.getName())) {
                 wPlayers.remove(wPlayer);
             }
         }
