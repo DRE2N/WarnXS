@@ -74,8 +74,10 @@ public class AddCommand extends BRCommand {
         player.warn(reason, amount, mod);
 
         Map<Integer, String> commands = plugin.getWConfig().getCommands();
-        String command = player.getPenaltyPoints() > Collections.max(commands.keySet()) ? plugin.getWConfig().getDeathPenalty() : commands.get(player.getPenaltyPoints());
-        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replaceAll("<player>", player.getName()));
+        if (!commands.isEmpty()) {
+            String command = player.getPenaltyPoints() > Collections.max(commands.keySet()) ? plugin.getWConfig().getDeathPenalty() : commands.get(player.getPenaltyPoints());
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replaceAll("<player>", player.getName()));
+        }
 
         MessageUtil.sendMessage(sender, WMessages.CMD_ADD_SUCCESS.getMessage(player.getName(), String.valueOf(player.getPenaltyPoints())));
     }
