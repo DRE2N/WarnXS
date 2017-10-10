@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Daniel Saukel
+ * Copyright (C) 2016-2017 Daniel Saukel
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -80,6 +80,9 @@ public class AddCommand extends BRCommand {
         }
 
         MessageUtil.sendMessage(sender, WMessages.CMD_ADD_SUCCESS.getMessage(player.getName(), String.valueOf(player.getPenaltyPoints())));
+        if (!WMessages.CMD_ADD_BROADCAST.getMessage().isEmpty()) {
+            MessageUtil.broadcastMessage(WMessages.CMD_ADD_BROADCAST.getMessage(mod.getName(), player.getName(), reason));
+        }
     }
 
 }

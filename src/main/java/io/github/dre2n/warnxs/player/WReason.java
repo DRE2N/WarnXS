@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Daniel Saukel
+ * Copyright (C) 2016-2017 Daniel Saukel
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,12 +32,14 @@ public class WReason {
     private Date date;
     private int pps;
     private UUID mod;
+    private boolean seen;
 
-    WReason(String rCase, Date date, int pps, UUID mod) {
+    WReason(String rCase, Date date, int pps, UUID mod, boolean seen) {
         this.rCase = rCase;
         this.date = date;
         this.pps = pps;
         this.mod = mod;
+        this.seen = seen;
     }
 
     WReason(ConfigurationSection config) {
@@ -45,6 +47,7 @@ public class WReason {
         date = new Date(config.getLong("date"));
         pps = config.getInt("pps");
         mod = UUID.fromString(config.getString("mod"));
+        seen = config.getBoolean("seen", true);
     }
 
     /**
@@ -79,12 +82,29 @@ public class WReason {
         return Bukkit.getOfflinePlayer(mod);
     }
 
+    /**
+     * @return
+     * if the warned player has already received the PP notification
+     */
+    public boolean isSeen() {
+        return seen;
+    }
+
+    /**
+     * @param seen
+     * set if the player has already received the PP notification
+     */
+    public void setSeen(boolean seen) {
+        this.seen = seen;
+    }
+
     ConfigurationSection serialize() {
         ConfigurationSection config = new YamlConfiguration();
         config.set("case", rCase);
         config.set("date", date.getTime());
         config.set("pps", pps);
         config.set("mod", mod.toString());
+        config.set("seen", seen);
         return config;
     }
 

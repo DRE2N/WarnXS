@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Daniel Saukel
+ * Copyright (C) 2016-2017 Daniel Saukel
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,6 +31,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
  */
 public enum WMessages implements Messages {
 
+    CMD_ADD_BROADCAST("cmd.add.broadcast", "&4&v1 &3has warned &4&v2&3. Reason: &4&v3"),
     CMD_ADD_SUCCESS("cmd.add.success", "&3You successfully warned &4&v1&3. The player has &4&v2&3 pp."),
     CMD_LIST_PENALTY_POINTS("cmd.list.penaltyPoints", "&3The player &4&v1 &3has &4&v2 &3penalty points."),
     CMD_MAIN_WELCOME("cmd.main.welcome", "&3Welcome to &4Warn&fXS"),
@@ -49,7 +50,11 @@ public enum WMessages implements Messages {
     HELP_CMD_MAIN("help.cmd.main", "/w - General status information."),
     HELP_CMD_RELOAD("help.cmd.reload", "/w reload - Reloads the plugin."),
     HELP_CMD_REMOVE("help.cmd.remove", "/w remove [player] ([index]) - Removes a player's warn entry. Leave the index number empty to select."),
-    LOG_NEW_PLAYER_DATA("log.newPlayerData", "&3A new player data file has been created and saved as &v1.");
+    LOG_NEW_PLAYER_DATA("log.newPlayerData", "&3A new player data file has been created and saved as &v1."),
+    NEW_WARNINGS_ONE("newWarnings.one", "&3You have been warned by &4&v1 &3for breaking the rules. Reason: &4&v2"),
+    NEW_WARNINGS_MULTIPLE("newWarnings.multiple", "&3You have multiple new warnings."),
+    NEW_WARNINGS_CLICK("newWarnings.click", "&3 >> &4[Click here to see a list of your warnings.]"),
+    NEW_WARNINGS_CMD("newWarnings.cmd", "&3 >> &4[Use /w list to see a list of your warnings.]");
 
     private String identifier;
     private String message;

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Daniel Saukel
+ * Copyright (C) 2016-2017 Daniel Saukel
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,9 +16,16 @@
  */
 package io.github.dre2n.warnxs.player;
 
+import io.github.dre2n.commons.compatibility.CompatibilityHandler;
+import io.github.dre2n.commons.util.messageutil.MessageUtil;
 import io.github.dre2n.warnxs.WarnXS;
+import io.github.dre2n.warnxs.config.WMessages;
 import java.io.File;
 import java.util.Date;
+import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.entity.Player;
 
 /**
@@ -98,8 +105,43 @@ public class WPlayer {
      * the player that warns this player
      */
     public void warn(String reason, int amount, Player mod) {
-        data.getReasons().add(new WReason(reason, new Date(), amount, mod.getUniqueId()));
+        data.getReasons().add(new WReason(reason, new Date(), amount, mod.getUniqueId(), player != null));
         data.save();
+    }
+
+    /**
+     * Sends notifications of new warnings to the player
+     */
+    public void sendNewWarnings() {
+        if (player == null || !player.isOnline()) {
+            return;
+        }
+        int i = 0;
+        WReason send = null;
+        for (WReason reason : data.getReasons()) {
+            if (!reason.isSeen()) {
+                i++;
+                send = reason;
+                reason.setSeen(true);
+            }
+        }
+        if (i == 0) {
+            return;
+        } else if (i == 1) {
+            MessageUtil.sendMessage(player, WMessages.NEW_WARNINGS_ONE.getMessage(send.getMod().getName(), send.getCase()));
+        } else if (i > 1) {
+            MessageUtil.sendMessage(player, WMessages.NEW_WARNINGS_MULTIPLE.getMessage());
+        }
+        if (CompatibilityHandler.getInstance().isSpigot()) {
+            BaseComponent[] msg = TextComponent.fromLegacyText(ChatColor.translateAlternateColorCodes('&', WMessages.NEW_WARNINGS_CLICK.getMessage()));
+            ClickEvent onClick = new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/warnxs list");
+            for (BaseComponent component : msg) {
+                component.setClickEvent(onClick);
+            }
+            player.spigot().sendMessage(msg);
+        } else {
+            MessageUtil.sendMessage(player, WMessages.NEW_WARNINGS_CMD.getMessage());
+        }
     }
 
 }
