@@ -16,9 +16,9 @@
  */
 package io.github.dre2n.warnxs.command;
 
-import io.github.dre2n.commons.command.BRCommand;
-import io.github.dre2n.commons.util.NumberUtil;
-import io.github.dre2n.commons.util.messageutil.MessageUtil;
+import io.github.dre2n.commons.chat.MessageUtil;
+import io.github.dre2n.commons.command.DRECommand;
+import io.github.dre2n.commons.misc.NumberUtil;
 import io.github.dre2n.warnxs.WarnXS;
 import io.github.dre2n.warnxs.config.WMessages;
 import io.github.dre2n.warnxs.player.WPermissions;
@@ -29,7 +29,7 @@ import org.bukkit.command.CommandSender;
 /**
  * @author Daniel Saukel
  */
-public class HelpCommand extends BRCommand {
+public class HelpCommand extends DRECommand {
 
     WarnXS plugin = WarnXS.getInstance();
 
@@ -45,8 +45,8 @@ public class HelpCommand extends BRCommand {
 
     @Override
     public void onExecute(String[] args, CommandSender sender) {
-        Set<BRCommand> dCommandList = plugin.getCommands().getCommands();
-        ArrayList<BRCommand> toSend = new ArrayList<>();
+        Set<DRECommand> dCommandList = plugin.getCommandCache().getCommands();
+        ArrayList<DRECommand> toSend = new ArrayList<>();
 
         int page = 1;
         if (args.length == 2) {
@@ -55,7 +55,7 @@ public class HelpCommand extends BRCommand {
         int send = 0;
         int max = 0;
         int min = 0;
-        for (BRCommand dCommand : dCommandList) {
+        for (DRECommand dCommand : dCommandList) {
             send++;
             if (send >= page * 5 - 4 && send <= page * 5) {
                 min = page * 5 - 4;
@@ -67,7 +67,7 @@ public class HelpCommand extends BRCommand {
         MessageUtil.sendPluginTag(sender, plugin);
         MessageUtil.sendCenteredMessage(sender, "&4&l[ &6" + min + "-" + max + " &4/&6 " + send + " &4|&6 " + page + " &4&l]");
 
-        for (BRCommand dCommand : toSend) {
+        for (DRECommand dCommand : toSend) {
             MessageUtil.sendMessage(sender, "&b" + dCommand.getCommand() + "&7 - " + dCommand.getHelp());
         }
     }

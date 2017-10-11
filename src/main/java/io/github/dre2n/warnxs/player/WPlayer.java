@@ -16,8 +16,8 @@
  */
 package io.github.dre2n.warnxs.player;
 
+import io.github.dre2n.commons.chat.MessageUtil;
 import io.github.dre2n.commons.compatibility.CompatibilityHandler;
-import io.github.dre2n.commons.util.messageutil.MessageUtil;
 import io.github.dre2n.warnxs.WarnXS;
 import io.github.dre2n.warnxs.config.WMessages;
 import java.io.File;

@@ -16,8 +16,8 @@
  */
 package io.github.dre2n.warnxs.command;
 
-import io.github.dre2n.commons.command.BRCommand;
-import io.github.dre2n.commons.util.messageutil.MessageUtil;
+import io.github.dre2n.commons.chat.MessageUtil;
+import io.github.dre2n.commons.command.DRECommand;
 import io.github.dre2n.warnxs.WarnXS;
 import io.github.dre2n.warnxs.config.WMessages;
 import io.github.dre2n.warnxs.player.WPermissions;
@@ -26,7 +26,7 @@ import org.bukkit.command.CommandSender;
 /**
  * @author Daniel Saukel
  */
-public class ReloadCommand extends BRCommand {
+public class ReloadCommand extends DRECommand {
 
     WarnXS plugin = WarnXS.getInstance();
 

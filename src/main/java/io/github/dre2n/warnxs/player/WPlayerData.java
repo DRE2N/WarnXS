@@ -16,8 +16,8 @@
  */
 package io.github.dre2n.warnxs.player;
 
-import io.github.dre2n.commons.config.BRConfig;
-import io.github.dre2n.commons.util.messageutil.MessageUtil;
+import io.github.dre2n.commons.chat.MessageUtil;
+import io.github.dre2n.commons.config.DREConfig;
 import io.github.dre2n.warnxs.WarnXS;
 import io.github.dre2n.warnxs.config.WMessages;
 import java.io.File;
@@ -30,7 +30,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 /**
  * @author Daniel Saukel
  */
-public class WPlayerData extends BRConfig {
+public class WPlayerData extends DREConfig {
 
     WarnXS plugin = WarnXS.getInstance();
 

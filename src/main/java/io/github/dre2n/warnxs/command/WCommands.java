@@ -16,15 +16,15 @@
  */
 package io.github.dre2n.warnxs.command;
 
-import io.github.dre2n.commons.command.BRCommands;
-import io.github.dre2n.commons.javaplugin.BRPlugin;
+import io.github.dre2n.commons.command.DRECommandCache;
+import io.github.dre2n.commons.javaplugin.DREPlugin;
 
 /**
  * An enumeration of all command instances.
  *
  * @author Daniel Saukel
  */
-public class WCommands extends BRCommands {
+public class WCommands extends DRECommandCache {
 
     public static AddCommand ADD = new AddCommand();
     public static HelpCommand HELP = new HelpCommand();
@@ -33,7 +33,7 @@ public class WCommands extends BRCommands {
     public static ReloadCommand RELOAD = new ReloadCommand();
     public static RemoveCommand REMOVE = new RemoveCommand();
 
-    public WCommands(BRPlugin plugin) {
+    public WCommands(DREPlugin plugin) {
         super("warnxs", plugin,
                 ADD,
                 HELP,

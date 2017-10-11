@@ -16,8 +16,8 @@
  */
 package io.github.dre2n.warnxs.config;
 
-import io.github.dre2n.commons.config.BRConfig;
-import io.github.dre2n.commons.util.NumberUtil;
+import io.github.dre2n.commons.config.DREConfig;
+import io.github.dre2n.commons.misc.NumberUtil;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,7 +27,7 @@ import java.util.Map;
  *
  * @author Daniel Saukel
  */
-public class WConfig extends BRConfig {
+public class WConfig extends DREConfig {
 
     public static final long HOUR = 1000 * 60 * 60;
 

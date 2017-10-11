@@ -16,8 +16,8 @@
  */
 package io.github.dre2n.warnxs.config;
 
-import io.github.dre2n.commons.config.Messages;
-import io.github.dre2n.commons.util.messageutil.MessageUtil;
+import io.github.dre2n.commons.chat.MessageUtil;
+import io.github.dre2n.commons.config.Message;
 import io.github.dre2n.warnxs.WarnXS;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -29,7 +29,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
  *
  * @author Daniel Saukel
  */
-public enum WMessages implements Messages {
+public enum WMessages implements Message {
 
     CMD_ADD_BROADCAST("cmd.add.broadcast", "&4&v1 &3has warned &4&v2&3. Reason: &4&v3"),
     CMD_ADD_SUCCESS("cmd.add.success", "&3You successfully warned &4&v1&3. The player has &4&v2&3 pp."),
@@ -41,7 +41,7 @@ public enum WMessages implements Messages {
     CMD_REMOVE_FAIL("cmd.remove.fail", "&4The player &3&v1 &4does not have a warning at index number &3&v2&4."),
     CMD_REMOVE_SUCCESS("cmd.remove.success", "&3Successfully removed the warning."),
     ERROR_CMD_NOT_EXIST_1("error.cmdNotExist.1", "&4Command &3&v1&4 does not exist!"),
-    ERROR_CMD_NOT_EXIST_2("error.cmdNotExist.2", "&4Please enter &3/f help&4 for help!"),
+    ERROR_CMD_NOT_EXIST_2("error.cmdNotExist.2", "&4Please enter &3/w help&4 for help!"),
     ERROR_NO_PERMISSION("error.noPermission", "&4You do not have permission to do this!"),
     ERROR_NO_SUCH_PLAYER("error.noSuch.player", "&4The player &3&v1 &4does not exist!"),
     HELP_CMD_ADD("help.cmd.add", "/w add [player] [amount] [reason] - Adds a warning."),
@@ -98,8 +98,8 @@ public enum WMessages implements Messages {
      * @param identifer
      * the identifer to set
      */
-    public static Messages getByIdentifier(String identifier) {
-        for (Messages message : values()) {
+    public static Message getByIdentifier(String identifier) {
+        for (Message message : values()) {
             if (message.getIdentifier().equals(identifier)) {
                 return message;
             }

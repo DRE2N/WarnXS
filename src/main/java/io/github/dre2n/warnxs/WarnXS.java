@@ -18,9 +18,9 @@ package io.github.dre2n.warnxs;
 
 import io.github.dre2n.commons.compatibility.Internals;
 import io.github.dre2n.commons.config.MessageConfig;
-import io.github.dre2n.commons.javaplugin.BRPlugin;
-import io.github.dre2n.commons.javaplugin.BRPluginSettings;
-import io.github.dre2n.commons.util.FileUtil;
+import io.github.dre2n.commons.javaplugin.DREPlugin;
+import io.github.dre2n.commons.javaplugin.DREPluginSettings;
+import io.github.dre2n.commons.misc.FileUtil;
 import io.github.dre2n.warnxs.command.WCommands;
 import io.github.dre2n.warnxs.config.WConfig;
 import io.github.dre2n.warnxs.config.WMessages;
@@ -36,7 +36,7 @@ import org.bukkit.event.HandlerList;
  *
  * @author Daniel Saukel
  */
-public class WarnXS extends BRPlugin {
+public class WarnXS extends DREPlugin {
 
     private static WarnXS instance;
 
@@ -60,11 +60,11 @@ public class WarnXS extends BRPlugin {
          * #~~Economy~~##~~~false~~~#
          * #Permissions##~~~false~~~#
          * #~~Metrics~~##~~~~true~~~#
-         * #Resource ID##~~~~????~~~#
+         * #Resource ID##~~~48233~~~#
          * ##########################
          */
 
-        settings = new BRPluginSettings(false, true, false, false, true, Internals.INDEPENDENT);
+        settings = new DREPluginSettings(false, true, false, false, true, 48233, Internals.INDEPENDENT);
     }
 
     @Override
@@ -77,8 +77,6 @@ public class WarnXS extends BRPlugin {
         loadCore();
 
         manager.registerEvents(new PlayerListener(this), this);
-
-        //startWorldUnloadTask(1200L);
     }
 
     @Override
@@ -171,7 +169,7 @@ public class WarnXS extends BRPlugin {
      * @return the loaded instance of WCommands
      */
     @Override
-    public WCommands getCommands() {
+    public WCommands getCommandCache() {
         return wCommands;
     }
 
