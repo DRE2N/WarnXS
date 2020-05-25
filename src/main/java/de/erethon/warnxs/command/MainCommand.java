@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Daniel Saukel
+ * Copyright (C) 2016-2020 Daniel Saukel
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,8 +14,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package io.github.dre2n.warnxs.command;
+package de.erethon.warnxs.command;
 
+import static io.github.dre2n.commons.chat.FatLetter.*;
 import io.github.dre2n.commons.chat.MessageUtil;
 import io.github.dre2n.commons.command.DRECommand;
 import io.github.dre2n.warnxs.WarnXS;
@@ -26,30 +27,28 @@ import org.bukkit.command.CommandSender;
 /**
  * @author Daniel Saukel
  */
-public class ReloadCommand extends DRECommand {
+public class MainCommand extends DRECommand {
 
     WarnXS plugin = WarnXS.getInstance();
 
-    public ReloadCommand() {
-        setCommand("reload");
-        setMinArgs(0);
-        setMaxArgs(0);
-        setHelp(WMessages.HELP_CMD_RELOAD.getMessage());
-        setPermission(WPermissions.RELOAD.getNode());
+    public MainCommand() {
+        setCommand("main");
+        setHelp(WMessages.HELP_CMD_MAIN.getMessage());
+        setPermission(WPermissions.MAIN.getNode());
         setPlayerCommand(true);
         setConsoleCommand(true);
     }
 
     @Override
     public void onExecute(String[] args, CommandSender sender) {
-        // Save
-        plugin.saveData();
-        plugin.getMessageConfig().save();
-
-        plugin.loadCore();
-
-        MessageUtil.sendPluginTag(sender, plugin);
-        MessageUtil.sendCenteredMessage(sender, WMessages.CMD_RELOAD_DONE.getMessage());
+        MessageUtil.sendCenteredMessage(sender, "&4" + W[0] + A[0] + R[0] + N[0]);
+        MessageUtil.sendCenteredMessage(sender, "&4" + W[1] + A[1] + R[1] + N[1]);
+        MessageUtil.sendCenteredMessage(sender, "&4" + W[2] + A[2] + R[2] + N[2]);
+        MessageUtil.sendCenteredMessage(sender, "&4" + W[3] + A[3] + R[3] + N[3]);
+        MessageUtil.sendCenteredMessage(sender, "&4" + W[4] + A[4] + R[4] + N[4]);
+        MessageUtil.sendCenteredMessage(sender, "&b&l######## " + WMessages.CMD_MAIN_WELCOME.getMessage() + " &3v" + plugin.getDescription().getVersion() + " &b&l########");
+        MessageUtil.sendCenteredMessage(sender, WMessages.CMD_MAIN_HELP.getMessage());
+        MessageUtil.sendCenteredMessage(sender, "&7\u00a92016-2020 Daniel Saukel; licensed under GPLv3.");
     }
 
 }
