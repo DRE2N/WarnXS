@@ -1,32 +1,32 @@
-cmd:
-  add:
-    success: '&3You successfully warned &4&v1&3. The player has &4&v2&3 pp.'
-  list:
-    penaltyPoints: '&3The player &4&v1 &3has &4&v2 &3penalty points.'
-  main:
-    welcome: '&3Welcome to &4Warn&fXS'
-    help: '&3Type in &o/w help&r&3 for further information.'
-  reload:
-    done: '&3Successfully reloaded WarnXS.'
-  remove:
-    click: '&3&oClick at one of the entries to remove it!'
-    fail: '&4The player &3&v1 &4does not have a warning at index number &3&v2&4.'
-    success: '&3Successfully removed the warning.'
-error:
-  cmdNotExist:
-    '1': '&4Command &3&v1&4 does not exist!'
-    '2': '&4Please enter &3/f help&4 for help!'
-  noPermission: '&4You do not have permission to do this!'
-  noSuch:
-    player: '&4The player &3&v1 &4does not exist!'
-help:
-  cmd:
-    add: /w add [player] [amount] [reason] - Adds a warning.
-    help: /w help [page] - Shows the help page.
-    list: /w list ([player=you]) - Shows a list of all warnings.
-    main: /w - General status information.
-    reload: /w reload - Reloads the plugin.
-    remove: /w remove [player] ([index]) - Removes a player's warn entry. Leave the
-      index number empty to select.
-log:
-  newPlayerData: '&3A new player data file has been created and saved as &v1.'
+cmd: 
+  add: 
+    broadcast: "&4&v1 &3has warned &4&v2&3. Reason: &4&v3"
+    success: "&3You successfully warned &4&v1&3. The player has &4&v2&3 pp."
+  list: 
+    penaltyPoints: "&3The player &4&v1 &3has &4&v2 &3penalty points."
+  main: 
+    help: "&3Type in &o/w help&r&3 for further information."
+    welcome: "&3Welcome to &4Warn&fXS"
+  reload: 
+    done: "&3Successfully reloaded WarnXS."
+  remove: 
+    click: "&3&oClick at one of the entries to remove it!"
+    fail: "&4The player &3&v1 &4does not have a warning at index number &3&v2&4."
+    success: "&3Successfully removed the warning."
+error: 
+  noSuchPlayer: "&4The player &3&v1 &4does not exist!"
+help: 
+  cmd: 
+    add: "/w add [player] [amount] [reason] - Adds a warning."
+    help: "/w help [page] - Shows the help page."
+    list: "/w list ([player=you]) - Shows a list of all warnings."
+    main: "/w - General status information."
+    reload: "/w reload - Reloads the plugin."
+    remove: "/w remove [player] ([index]) - Removes a player's warn entry. Leave the index number empty to select."
+log: 
+  newPlayerData: "&3A new player data file has been created and saved as &v1."
+newWarnings: 
+  click: "&3 >> &4[Click here to see a list of your warnings.]"
+  cmd: "&3 >> &4[Use /w list to see a list of your warnings.]"
+  multiple: "&3You have multiple new warnings."
+  one: "&3You have been warned by &4&v1 &3for breaking the rules. Reason: &4&v2"
