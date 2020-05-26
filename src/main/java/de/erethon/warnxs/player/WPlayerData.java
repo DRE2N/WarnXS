@@ -34,10 +34,12 @@ public class WPlayerData extends DREConfig {
 
     WarnXS plugin = WarnXS.getInstance();
 
-    public static final int CONFIG_VERSION = 1;
+    public static final int CONFIG_VERSION = 2;
 
     private String lastName;
     private long timeLastPlayed;
+    private long timeLastWarned;
+    private int pointsLastWarned;
     private List<WReason> reasons = new ArrayList<>();
 
     public WPlayerData(File file) {
@@ -84,6 +86,31 @@ public class WPlayerData extends DREConfig {
 
     /**
      * @return
+     * the last time when the player was warned
+     */
+    public long getTimeLastWarned() {
+        return timeLastWarned;
+    }
+
+    /**
+     * @return
+     * the amount of penalty points when the player was warned the latest time
+     */
+    public int getPointsLastWarned() {
+        return pointsLastWarned;
+    }
+
+    /**
+     * @param pp
+     * the new amount of penalty points to set
+     */
+    public void updatePoints(int pp) {
+        pointsLastWarned = pp;
+        timeLastWarned = System.currentTimeMillis();
+    }
+
+    /**
+     * @return
      * the warn reasons
      */
     public List<WReason> getReasons() {
@@ -108,6 +135,8 @@ public class WPlayerData extends DREConfig {
     public void load() {
         lastName = config.getString("lastName", lastName);
         timeLastPlayed = config.getLong("timeLastPlayed", timeLastPlayed);
+        timeLastWarned = config.getLong("timeLastWarned", timeLastWarned);
+        pointsLastWarned = config.getInt("pointsLastWarned", pointsLastWarned);
         if (config.contains("reasons")) {
             for (String key : config.getConfigurationSection("reasons").getKeys(false)) {
                 reasons.add(new WReason(config.getConfigurationSection("reasons." + key)));
@@ -119,6 +148,8 @@ public class WPlayerData extends DREConfig {
     public void save() {
         config.set("lastName", lastName);
         config.set("timeLastPlayed", timeLastPlayed);
+        config.set("timeLastWarned", timeLastWarned);
+        config.set("pointsLastWarned", pointsLastWarned);
         config.set("reasons", serializeReasons());
         try {
             config.save(file);

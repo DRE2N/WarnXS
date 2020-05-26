@@ -33,12 +33,13 @@ public class WConfig extends DREConfig {
 
     public static final long HOUR = 1000 * 60 * 60;
 
-    public static final int CONFIG_VERSION = 1;
+    public static final int CONFIG_VERSION = 2;
 
     private String language = "english";
     private Map<Integer, String> commands = new HashMap<>();
     private String deathPenalty = "";
     private long removeTime = HOUR * 24 * 7;
+    private Map<Integer, Long> removeTimeDelays = new HashMap<>();
 
     public WConfig(File file) {
         super(file, CONFIG_VERSION);
@@ -81,6 +82,14 @@ public class WConfig extends DREConfig {
         return removeTime;
     }
 
+    /**
+     * @return
+     * a map of penalty points and command
+     */
+    public Map<Integer, Long> getRemoveTimeDelays() {
+        return removeTimeDelays;
+    }
+
     /* Actions */
     @Override
     public void initialize() {
@@ -100,6 +109,10 @@ public class WConfig extends DREConfig {
             config.set("removeTime", removeTime / HOUR);
         }
 
+        if (!config.contains("removeTimeDelays")) {
+            config.createSection("removeTimeDelays");
+        }
+
         save();
     }
 
@@ -112,17 +125,26 @@ public class WConfig extends DREConfig {
             for (String key : config.getConfigurationSection("commands").getKeys(false)) {
                 try {
                     commands.put(NumberUtil.parseInt(key), config.getString("commands." + key));
-                } catch (NullPointerException exception) {
+                } catch (Exception exception) {
+                    MessageUtil.log(DREPlugin.getInstance(), "Invalid commands value: " + key);
                 }
             }
         }
 
-        if (config.contains("deathPenalty")) {
-            deathPenalty = config.getString("deathPenalty");
-        }
+        deathPenalty = config.getString("deathPenalty", deathPenalty);
 
         if (config.contains("removeTime")) {
             removeTime = config.getInt("removeTime") * HOUR;
+        }
+
+        if (config.contains("removeTimeDelays")) {
+            for (String key : config.getConfigurationSection("removeTimeDelays").getKeys(false)) {
+                try {
+                    removeTimeDelays.put(NumberUtil.parseInt(key), config.getInt("removeTimeDelays." + key) * HOUR);
+                } catch (Exception exception) {
+                    MessageUtil.log(DREPlugin.getInstance(), "Invalid removeTimeDelays value: " + key);
+                }
+            }
         }
     }
 

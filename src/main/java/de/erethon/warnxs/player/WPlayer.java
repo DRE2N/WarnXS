@@ -80,19 +80,22 @@ public class WPlayer {
      * the amount of penalty points
      */
     public int getPenaltyPoints() {
-        int pps = 0;
-        for (WReason reason : data.getReasons()) {
-            int rpps = reason.getPenaltyPoints();
-            long time = reason.getDate().getTime();
-            int i = 1;
-            while (time + plugin.getWConfig().getRemoveTime() * i <= System.currentTimeMillis()) {
-                if (rpps > 0) {
-                    rpps--;
-                }
-                i++;
-            }
-            pps += rpps;
+        int pps = data.getPointsLastWarned();
+        long timeLastWarned = data.getTimeLastWarned();
+        Long ignoreRemovals = plugin.getWConfig().getRemoveTimeDelays().get(pps);
+        if (ignoreRemovals != null) {
+            timeLastWarned += ignoreRemovals;
         }
+
+        int i = 1;
+        while (timeLastWarned + plugin.getWConfig().getRemoveTime() * i <= System.currentTimeMillis()) {
+            if (pps <= 0) {
+                break;
+            }
+            pps--;
+            i++;
+        }
+
         return pps;
     }
 
@@ -106,6 +109,7 @@ public class WPlayer {
      */
     public void warn(String reason, int amount, Player mod) {
         data.getReasons().add(new WReason(reason, new Date(), amount, mod.getUniqueId(), player != null));
+        data.updatePoints(getPenaltyPoints() + amount);
         data.save();
     }
 
