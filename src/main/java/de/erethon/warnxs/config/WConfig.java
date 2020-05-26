@@ -22,6 +22,7 @@ import de.erethon.commons.javaplugin.DREPlugin;
 import de.erethon.commons.misc.NumberUtil;
 import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -36,7 +37,7 @@ public class WConfig extends DREConfig {
     public static final int CONFIG_VERSION = 2;
 
     private String language = "english";
-    private Map<Integer, String> commands = new HashMap<>();
+    private Map<Integer, String[]> commands = new HashMap<>();
     private String deathPenalty = "";
     private long removeTime = HOUR * 24 * 7;
     private Map<Integer, Long> removeTimeDelays = new HashMap<>();
@@ -62,7 +63,7 @@ public class WConfig extends DREConfig {
      * @return
      * a map of penalty points and command
      */
-    public Map<Integer, String> getCommands() {
+    public Map<Integer, String[]> getCommands() {
         return commands;
     }
 
@@ -124,7 +125,13 @@ public class WConfig extends DREConfig {
         if (config.contains("commands")) {
             for (String key : config.getConfigurationSection("commands").getKeys(false)) {
                 try {
-                    commands.put(NumberUtil.parseInt(key), config.getString("commands." + key));
+                    Object cmdObject = config.get("commands." + key);
+                    if (cmdObject instanceof String) {
+                        commands.put(NumberUtil.parseInt(key), new String[]{(String) cmdObject});
+                    } else if (cmdObject instanceof List) {
+                        List<String> list = (List<String>) cmdObject;
+                        commands.put(NumberUtil.parseInt(key), list.toArray(new String[list.size()]));
+                    }
                 } catch (Exception exception) {
                     MessageUtil.log(DREPlugin.getInstance(), "Invalid commands value: " + key);
                 }

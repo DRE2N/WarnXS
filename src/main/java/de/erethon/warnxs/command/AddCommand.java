@@ -23,9 +23,6 @@ import de.erethon.warnxs.WarnXS;
 import de.erethon.warnxs.config.WMessage;
 import de.erethon.warnxs.player.WPermission;
 import de.erethon.warnxs.player.WPlayer;
-import java.util.Collections;
-import java.util.Map;
-import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -71,15 +68,9 @@ public class AddCommand extends DRECommand {
                 reason += arg + " ";
             }
         }
-        player.warn(reason, amount, mod);
+        int pp = player.warn(reason, amount, mod);
 
-        Map<Integer, String> commands = plugin.getWConfig().getCommands();
-        if (!commands.isEmpty()) {
-            String command = player.getPenaltyPoints() > Collections.max(commands.keySet()) ? plugin.getWConfig().getDeathPenalty() : commands.get(player.getPenaltyPoints());
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replaceAll("<player>", player.getName()));
-        }
-
-        MessageUtil.sendMessage(sender, WMessage.CMD_ADD_SUCCESS.getMessage(player.getName(), String.valueOf(player.getPenaltyPoints())));
+        MessageUtil.sendMessage(sender, WMessage.CMD_ADD_SUCCESS.getMessage(player.getName(), String.valueOf(pp)));
         if (!WMessage.CMD_ADD_BROADCAST.getMessage().isEmpty()) {
             MessageUtil.broadcastMessage(WMessage.CMD_ADD_BROADCAST.getMessage(mod.getName(), player.getName(), reason));
         }

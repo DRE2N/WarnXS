@@ -21,11 +21,14 @@ import de.erethon.commons.compatibility.CompatibilityHandler;
 import de.erethon.warnxs.WarnXS;
 import de.erethon.warnxs.config.WMessage;
 import java.io.File;
+import java.util.Collections;
 import java.util.Date;
+import java.util.Map;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 /**
@@ -106,11 +109,26 @@ public class WPlayer {
      * the amount of penalty points
      * @param mod
      * the player that warns this player
+     * @return
+     * the new amount of penalty points the player has
      */
-    public void warn(String reason, int amount, Player mod) {
+    public int warn(String reason, int amount, Player mod) {
+        int pp = getPenaltyPoints() + amount;
         data.getReasons().add(new WReason(reason, new Date(), amount, mod.getUniqueId(), player != null));
-        data.updatePoints(getPenaltyPoints() + amount);
+        data.updatePoints(pp);
         data.save();
+
+        Map<Integer, String[]> cmdMap = plugin.getWConfig().getCommands();
+        String[] cmds;
+        if (getPenaltyPoints() > Collections.max(cmdMap.keySet())) {
+            cmds = new String[]{plugin.getWConfig().getDeathPenalty()};
+        } else {
+            cmds = cmdMap.get(pp);
+        }
+        for (String cmd : cmds) {
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd.replace("<player>", player.getName()).replace("<reason>", reason));
+        }
+        return pp;
     }
 
     /**
