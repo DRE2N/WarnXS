@@ -16,12 +16,12 @@
  */
 package de.erethon.warnxs.command;
 
-import io.github.dre2n.commons.chat.MessageUtil;
-import io.github.dre2n.commons.command.DRECommand;
-import io.github.dre2n.commons.misc.NumberUtil;
-import io.github.dre2n.warnxs.WarnXS;
-import io.github.dre2n.warnxs.config.WMessages;
-import io.github.dre2n.warnxs.player.WPermissions;
+import de.erethon.commons.chat.MessageUtil;
+import de.erethon.commons.command.DRECommand;
+import de.erethon.commons.misc.NumberUtil;
+import de.erethon.warnxs.WarnXS;
+import de.erethon.warnxs.config.WMessage;
+import de.erethon.warnxs.player.WPermission;
 import java.util.ArrayList;
 import java.util.Set;
 import org.bukkit.command.CommandSender;
@@ -37,8 +37,8 @@ public class HelpCommand extends DRECommand {
         setCommand("help");
         setMinArgs(0);
         setMaxArgs(1);
-        setHelp(WMessages.HELP_CMD_HELP.getMessage());
-        setPermission(WPermissions.HELP.getNode());
+        setHelp(WMessage.HELP_CMD_HELP.getMessage());
+        setPermission(WPermission.HELP.getNode());
         setPlayerCommand(true);
         setConsoleCommand(true);
     }

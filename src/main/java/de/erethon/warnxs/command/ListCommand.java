@@ -16,14 +16,14 @@
  */
 package de.erethon.warnxs.command;
 
-import io.github.dre2n.commons.chat.MessageUtil;
-import io.github.dre2n.commons.command.DRECommand;
-import io.github.dre2n.commons.compatibility.CompatibilityHandler;
-import io.github.dre2n.warnxs.WarnXS;
-import io.github.dre2n.warnxs.config.WMessages;
-import io.github.dre2n.warnxs.player.WPermissions;
-import io.github.dre2n.warnxs.player.WPlayer;
-import io.github.dre2n.warnxs.player.WReason;
+import de.erethon.commons.chat.MessageUtil;
+import de.erethon.commons.command.DRECommand;
+import de.erethon.commons.compatibility.CompatibilityHandler;
+import de.erethon.warnxs.WarnXS;
+import de.erethon.warnxs.config.WMessage;
+import de.erethon.warnxs.player.WPermission;
+import de.erethon.warnxs.player.WPlayer;
+import de.erethon.warnxs.player.WReason;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -42,8 +42,8 @@ public class ListCommand extends DRECommand {
         setCommand("list");
         setMinArgs(0);
         setMaxArgs(1);
-        setHelp(WMessages.HELP_CMD_LIST.getMessage());
-        setPermission(WPermissions.LIST.getNode());
+        setHelp(WMessage.HELP_CMD_LIST.getMessage());
+        setPermission(WPermission.LIST.getNode());
         setPlayerCommand(true);
         setConsoleCommand(true);
     }
@@ -51,20 +51,20 @@ public class ListCommand extends DRECommand {
     @Override
     public void onExecute(String[] args, CommandSender sender) {
         WPlayer wPlayer = null;
-        if (args.length == 2 && WPermissions.hasPermission(sender, WPermissions.LIST_OTHERS)) {
+        if (args.length == 2 && WPermission.hasPermission(sender, WPermission.LIST_OTHERS)) {
             wPlayer = plugin.getWPlayers().getByName(args[1]);
             if (wPlayer == null) {
-                MessageUtil.sendMessage(sender, WMessages.ERROR_NO_SUCH_PLAYER.getMessage(args[1]));
+                MessageUtil.sendMessage(sender, WMessage.ERROR_NO_SUCH_PLAYER.getMessage(args[1]));
                 return;
             }
         } else if (sender instanceof Player) {
             wPlayer = plugin.getWPlayers().getByPlayer((Player) sender);
         } else {
-            MessageUtil.sendMessage(sender, WMessages.ERROR_NO_SUCH_PLAYER.getMessage("none"));
+            MessageUtil.sendMessage(sender, WMessage.ERROR_NO_SUCH_PLAYER.getMessage("none"));
             return;
         }
 
-        MessageUtil.sendCenteredMessage(sender, WMessages.CMD_LIST_PENALTY_POINTS.getMessage(wPlayer.getName(), String.valueOf(wPlayer.getPenaltyPoints())));
+        MessageUtil.sendCenteredMessage(sender, WMessage.CMD_LIST_PENALTY_POINTS.getMessage(wPlayer.getName(), String.valueOf(wPlayer.getPenaltyPoints())));
         MessageUtil.sendCenteredMessage(sender, "&e&l= = = = = = = = = =");
         MessageUtil.sendMessage(sender, "&bDATE &e| &bMOD &e| &bPENALTY POINTS");
         for (WReason reason : wPlayer.getData().getReasons()) {

@@ -16,10 +16,10 @@
  */
 package de.erethon.warnxs.player;
 
-import io.github.dre2n.commons.chat.MessageUtil;
-import io.github.dre2n.commons.compatibility.CompatibilityHandler;
-import io.github.dre2n.warnxs.WarnXS;
-import io.github.dre2n.warnxs.config.WMessages;
+import de.erethon.commons.chat.MessageUtil;
+import de.erethon.commons.compatibility.CompatibilityHandler;
+import de.erethon.warnxs.WarnXS;
+import de.erethon.warnxs.config.WMessage;
 import java.io.File;
 import java.util.Date;
 import net.md_5.bungee.api.ChatColor;
@@ -128,19 +128,19 @@ public class WPlayer {
         if (i == 0) {
             return;
         } else if (i == 1) {
-            MessageUtil.sendMessage(player, WMessages.NEW_WARNINGS_ONE.getMessage(send.getMod().getName(), send.getCase()));
+            MessageUtil.sendMessage(player, WMessage.NEW_WARNINGS_ONE.getMessage(send.getMod().getName(), send.getCase()));
         } else if (i > 1) {
-            MessageUtil.sendMessage(player, WMessages.NEW_WARNINGS_MULTIPLE.getMessage());
+            MessageUtil.sendMessage(player, WMessage.NEW_WARNINGS_MULTIPLE.getMessage());
         }
         if (CompatibilityHandler.getInstance().isSpigot()) {
-            BaseComponent[] msg = TextComponent.fromLegacyText(ChatColor.translateAlternateColorCodes('&', WMessages.NEW_WARNINGS_CLICK.getMessage()));
+            BaseComponent[] msg = TextComponent.fromLegacyText(ChatColor.translateAlternateColorCodes('&', WMessage.NEW_WARNINGS_CLICK.getMessage()));
             ClickEvent onClick = new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/warnxs list");
             for (BaseComponent component : msg) {
                 component.setClickEvent(onClick);
             }
             player.spigot().sendMessage(msg);
         } else {
-            MessageUtil.sendMessage(player, WMessages.NEW_WARNINGS_CMD.getMessage());
+            MessageUtil.sendMessage(player, WMessage.NEW_WARNINGS_CMD.getMessage());
         }
     }
 

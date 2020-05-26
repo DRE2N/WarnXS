@@ -16,15 +16,15 @@
  */
 package de.erethon.warnxs.command;
 
-import io.github.dre2n.commons.chat.MessageUtil;
-import io.github.dre2n.commons.command.DRECommand;
-import io.github.dre2n.commons.compatibility.CompatibilityHandler;
-import io.github.dre2n.commons.misc.NumberUtil;
-import io.github.dre2n.warnxs.WarnXS;
-import io.github.dre2n.warnxs.config.WMessages;
-import io.github.dre2n.warnxs.player.WPermissions;
-import io.github.dre2n.warnxs.player.WPlayer;
-import io.github.dre2n.warnxs.player.WReason;
+import de.erethon.commons.chat.MessageUtil;
+import de.erethon.commons.command.DRECommand;
+import de.erethon.commons.compatibility.CompatibilityHandler;
+import de.erethon.commons.misc.NumberUtil;
+import de.erethon.warnxs.WarnXS;
+import de.erethon.warnxs.config.WMessage;
+import de.erethon.warnxs.player.WPermission;
+import de.erethon.warnxs.player.WPlayer;
+import de.erethon.warnxs.player.WReason;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
@@ -44,8 +44,8 @@ public class RemoveCommand extends DRECommand {
         setCommand("remove");
         setMinArgs(1);
         setMaxArgs(2);
-        setHelp(WMessages.HELP_CMD_REMOVE.getMessage());
-        setPermission(WPermissions.REMOVE.getNode());
+        setHelp(WMessage.HELP_CMD_REMOVE.getMessage());
+        setPermission(WPermission.REMOVE.getNode());
         setPlayerCommand(true);
         setConsoleCommand(true);
     }
@@ -55,7 +55,7 @@ public class RemoveCommand extends DRECommand {
         WPlayer player = plugin.getWPlayers().getByName(args[1]);
         if (args.length == 2) {
             if (CompatibilityHandler.getInstance().isSpigot() && sender instanceof Player) {
-                MessageUtil.sendCenteredMessage(sender, WMessages.CMD_REMOVE_CLICK.getMessage());
+                MessageUtil.sendCenteredMessage(sender, WMessage.CMD_REMOVE_CLICK.getMessage());
                 MessageUtil.sendCenteredMessage(sender, "&e&l= = = = = = = = = =");
                 MessageUtil.sendMessage(sender, "&bDATE &e| &bMOD &e| &bPENALTY POINTS");
                 int index = 0;
@@ -83,7 +83,7 @@ public class RemoveCommand extends DRECommand {
 
         int index = NumberUtil.parseInt(args[2], -1);
         if (player == null) {
-            MessageUtil.sendMessage(sender, WMessages.ERROR_NO_SUCH_PLAYER.getMessage(args[1]));
+            MessageUtil.sendMessage(sender, WMessage.ERROR_NO_SUCH_PLAYER.getMessage(args[1]));
             return;
         }
         if (index == -1) {
@@ -94,9 +94,9 @@ public class RemoveCommand extends DRECommand {
         if (player.getData().getReasons().size() > index) {
             player.getData().getReasons().remove(index);
             player.getData().save();
-            MessageUtil.sendMessage(sender, WMessages.CMD_REMOVE_SUCCESS.getMessage());
+            MessageUtil.sendMessage(sender, WMessage.CMD_REMOVE_SUCCESS.getMessage());
         } else {
-            MessageUtil.sendMessage(sender, WMessages.CMD_REMOVE_FAIL.getMessage(player.getName(), String.valueOf(index)));
+            MessageUtil.sendMessage(sender, WMessage.CMD_REMOVE_FAIL.getMessage(player.getName(), String.valueOf(index)));
         }
     }
 

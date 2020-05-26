@@ -16,9 +16,9 @@
  */
 package de.erethon.warnxs.listener;
 
-import io.github.dre2n.warnxs.WarnXS;
-import io.github.dre2n.warnxs.player.WPlayer;
-import io.github.dre2n.warnxs.player.WPlayers;
+import de.erethon.warnxs.WarnXS;
+import de.erethon.warnxs.player.WPlayer;
+import de.erethon.warnxs.player.WPlayers;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

@@ -16,8 +16,10 @@
  */
 package de.erethon.warnxs.config;
 
-import io.github.dre2n.commons.config.DREConfig;
-import io.github.dre2n.commons.misc.NumberUtil;
+import de.erethon.commons.chat.MessageUtil;
+import de.erethon.commons.config.DREConfig;
+import de.erethon.commons.javaplugin.DREPlugin;
+import de.erethon.commons.misc.NumberUtil;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
@@ -103,9 +105,8 @@ public class WConfig extends DREConfig {
 
     @Override
     public void load() {
-        if (config.contains("language")) {
-            language = config.getString("language");
-        }
+        language = config.getString("language", language);
+        DREPlugin.getInstance().getMessageHandler().setDefaultLanguage(language);
 
         if (config.contains("commands")) {
             for (String key : config.getConfigurationSection("commands").getKeys(false)) {

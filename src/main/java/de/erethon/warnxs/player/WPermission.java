@@ -16,7 +16,7 @@
  */
 package de.erethon.warnxs.player;
 
-import io.github.dre2n.commons.misc.EnumUtil;
+import de.erethon.commons.misc.EnumUtil;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -29,7 +29,7 @@ import static org.bukkit.permissions.PermissionDefault.*;
 /**
  * @author Daniel Saukel
  */
-public enum WPermissions {
+public enum WPermission {
 
     // Main nodes
     ADD("add", OP),
@@ -48,14 +48,14 @@ public enum WPermissions {
 
     private String node;
     private PermissionDefault isDefault;
-    private List<WPermissions> children = new ArrayList<>();
+    private List<WPermission> children = new ArrayList<>();
 
-    WPermissions(String node, PermissionDefault isDefault) {
+    WPermission(String node, PermissionDefault isDefault) {
         this.node = node;
         this.isDefault = isDefault;
     }
 
-    WPermissions(String node, PermissionDefault isDefault, WPermissions... children) {
+    WPermission(String node, PermissionDefault isDefault, WPermission... children) {
         this(node, isDefault);
         this.children = Arrays.asList(children);
     }
@@ -84,7 +84,7 @@ public enum WPermissions {
     /**
      * @return the child permissions
      */
-    public List<WPermissions> getChildren() {
+    public List<WPermission> getChildren() {
         return children;
     }
 
@@ -92,10 +92,10 @@ public enum WPermissions {
      * @param node
      * the node String, with or without "dxl."
      * @return
-     * the WPermissions value
+     * the WPermission value
      */
-    public static WPermissions getByNode(String node) {
-        for (WPermissions permission : values()) {
+    public static WPermission getByNode(String node) {
+        for (WPermission permission : values()) {
             if (permission.getNode().equals(node) || permission.node.equals(node)) {
                 return permission;
             }
@@ -109,12 +109,12 @@ public enum WPermissions {
      * the permission to check
      * @return if the player has the permission
      */
-    public static boolean hasPermission(CommandSender sender, WPermissions permission) {
+    public static boolean hasPermission(CommandSender sender, WPermission permission) {
         if (sender.hasPermission(permission.getNode())) {
             return true;
         }
 
-        for (WPermissions parent : WPermissions.values()) {
+        for (WPermission parent : WPermission.values()) {
             if (parent.getChildren().contains(permission) && sender.hasPermission(parent.getNode())) {
                 return true;
             }
@@ -133,19 +133,19 @@ public enum WPermissions {
             return true;
         }
 
-        WPermissions dPermission = null;
-        if (EnumUtil.isValidEnum(WPermissions.class, permission)) {
-            dPermission = WPermissions.valueOf(permission);
+        WPermission dPermission = null;
+        if (EnumUtil.isValidEnum(WPermission.class, permission)) {
+            dPermission = WPermission.valueOf(permission);
 
-        } else if (WPermissions.getByNode(permission) != null) {
-            dPermission = WPermissions.getByNode(permission);
+        } else if (WPermission.getByNode(permission) != null) {
+            dPermission = WPermission.getByNode(permission);
         }
 
         if (dPermission == null) {
             return false;
         }
 
-        for (WPermissions parent : WPermissions.values()) {
+        for (WPermission parent : WPermission.values()) {
             if (parent.getChildren().contains(dPermission) && sender.hasPermission(parent.getNode())) {
                 return true;
             }
@@ -158,7 +158,7 @@ public enum WPermissions {
      * Registers the permissions.
      */
     public static void register() {
-        for (WPermissions permission : values()) {
+        for (WPermission permission : values()) {
             Bukkit.getPluginManager().addPermission(new Permission(permission.getNode(), permission.isDefault()));
         }
     }

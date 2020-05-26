@@ -16,10 +16,10 @@
  */
 package de.erethon.warnxs.player;
 
-import io.github.dre2n.commons.chat.MessageUtil;
-import io.github.dre2n.commons.config.DREConfig;
-import io.github.dre2n.warnxs.WarnXS;
-import io.github.dre2n.warnxs.config.WMessages;
+import de.erethon.commons.chat.MessageUtil;
+import de.erethon.commons.config.DREConfig;
+import de.erethon.warnxs.WarnXS;
+import de.erethon.warnxs.config.WMessage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -96,7 +96,7 @@ public class WPlayerData extends DREConfig {
         if (!file.exists()) {
             try {
                 file.createNewFile();
-                MessageUtil.log(plugin, WMessages.LOG_NEW_PLAYER_DATA.getMessage(file.getName()));
+                MessageUtil.log(plugin, WMessage.LOG_NEW_PLAYER_DATA.getMessage(file.getName()));
             } catch (IOException exception) {
                 exception.printStackTrace();
             }
@@ -106,12 +106,8 @@ public class WPlayerData extends DREConfig {
 
     @Override
     public void load() {
-        if (config.contains("lastName")) {
-            lastName = config.getString("lastName");
-        }
-        if (config.contains("timeLastPlayed")) {
-            timeLastPlayed = config.getLong("timeLastPlayed");
-        }
+        lastName = config.getString("lastName", lastName);
+        timeLastPlayed = config.getLong("timeLastPlayed", timeLastPlayed);
         if (config.contains("reasons")) {
             for (String key : config.getConfigurationSection("reasons").getKeys(false)) {
                 reasons.add(new WReason(config.getConfigurationSection("reasons." + key)));

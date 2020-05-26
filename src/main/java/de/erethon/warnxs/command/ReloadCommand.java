@@ -16,11 +16,11 @@
  */
 package de.erethon.warnxs.command;
 
-import io.github.dre2n.commons.chat.MessageUtil;
-import io.github.dre2n.commons.command.DRECommand;
-import io.github.dre2n.warnxs.WarnXS;
-import io.github.dre2n.warnxs.config.WMessages;
-import io.github.dre2n.warnxs.player.WPermissions;
+import de.erethon.commons.chat.MessageUtil;
+import de.erethon.commons.command.DRECommand;
+import de.erethon.warnxs.WarnXS;
+import de.erethon.warnxs.config.WMessage;
+import de.erethon.warnxs.player.WPermission;
 import org.bukkit.command.CommandSender;
 
 /**
@@ -34,22 +34,19 @@ public class ReloadCommand extends DRECommand {
         setCommand("reload");
         setMinArgs(0);
         setMaxArgs(0);
-        setHelp(WMessages.HELP_CMD_RELOAD.getMessage());
-        setPermission(WPermissions.RELOAD.getNode());
+        setHelp(WMessage.HELP_CMD_RELOAD.getMessage());
+        setPermission(WPermission.RELOAD.getNode());
         setPlayerCommand(true);
         setConsoleCommand(true);
     }
 
     @Override
     public void onExecute(String[] args, CommandSender sender) {
-        // Save
         plugin.saveData();
-        plugin.getMessageConfig().save();
-
         plugin.loadCore();
 
         MessageUtil.sendPluginTag(sender, plugin);
-        MessageUtil.sendCenteredMessage(sender, WMessages.CMD_RELOAD_DONE.getMessage());
+        MessageUtil.sendCenteredMessage(sender, WMessage.CMD_RELOAD_DONE.getMessage());
     }
 
 }

@@ -16,17 +16,16 @@
  */
 package de.erethon.warnxs;
 
-import io.github.dre2n.commons.compatibility.Internals;
-import io.github.dre2n.commons.config.MessageConfig;
-import io.github.dre2n.commons.javaplugin.DREPlugin;
-import io.github.dre2n.commons.javaplugin.DREPluginSettings;
-import io.github.dre2n.commons.misc.FileUtil;
-import io.github.dre2n.warnxs.command.WCommands;
-import io.github.dre2n.warnxs.config.WConfig;
-import io.github.dre2n.warnxs.config.WMessages;
-import io.github.dre2n.warnxs.listener.PlayerListener;
-import io.github.dre2n.warnxs.player.WPermissions;
-import io.github.dre2n.warnxs.player.WPlayers;
+import de.erethon.commons.compatibility.Internals;
+import de.erethon.commons.javaplugin.DREPlugin;
+import de.erethon.commons.javaplugin.DREPluginSettings;
+import de.erethon.commons.misc.FileUtil;
+import de.erethon.commons.spiget.comparator.VersionComparator;
+import de.erethon.warnxs.command.WCommands;
+import de.erethon.warnxs.config.WConfig;
+import de.erethon.warnxs.listener.PlayerListener;
+import de.erethon.warnxs.player.WPermission;
+import de.erethon.warnxs.player.WPlayers;
 import java.io.File;
 import org.bukkit.event.HandlerList;
 
@@ -45,26 +44,18 @@ public class WarnXS extends DREPlugin {
     public static File PLAYERS;
 
     private WConfig wConfig;
-    private MessageConfig messageConfig;
     private WCommands wCommands;
     private WPlayers wPlayers;
 
     public WarnXS() {
-        /*
-         * ##########################
-         * ####~BRPluginSettings~####
-         * ##########################
-         * #~Internals~##INDEPENDENT#
-         * #~SpigotAPI~##~~~false~~~#
-         * #~~~~UUID~~~##~~~~true~~~#
-         * #~~Economy~~##~~~false~~~#
-         * #Permissions##~~~false~~~#
-         * #~~Metrics~~##~~~~true~~~#
-         * #Resource ID##~~~48233~~~#
-         * ##########################
-         */
-
-        settings = new DREPluginSettings(false, true, false, false, true, 48233, Internals.INDEPENDENT);
+        settings = DREPluginSettings.builder()
+                .internals(Internals.INDEPENDENT)
+                .economy(false)
+                .permissions(false)
+                .metrics(true)
+                .spigotMCResourceId(48233)
+                .versionComparator(VersionComparator.SEM_VER)
+                .build();
     }
 
     @Override
@@ -72,7 +63,7 @@ public class WarnXS extends DREPlugin {
         super.onEnable();
         instance = this;
 
-        WPermissions.register();
+        WPermission.register();
         initFolders();
         loadCore();
 
@@ -110,12 +101,7 @@ public class WarnXS extends DREPlugin {
     }
 
     public void loadCore() {
-        // Load Language
-        loadMessageConfig(new File(LANGUAGES, "english.yml"));
-        // Load Config
         loadWConfig(new File(getDataFolder(), "config.yml"));
-        // Load Language 2
-        loadMessageConfig(new File(LANGUAGES, wConfig.getLanguage() + ".yml"));
         loadWPlayers();
         wPlayers.loadAll();
         loadWCommands();
@@ -123,10 +109,9 @@ public class WarnXS extends DREPlugin {
 
     public void saveData() {
         wPlayers.saveAll();
-        messageConfig.save();
         File backupDir = new File(BACKUPS, String.valueOf(System.currentTimeMillis()));
         backupDir.mkdir();
-        FileUtil.copyDirectory(PLAYERS, backupDir, new String[]{});
+        FileUtil.copy(PLAYERS, backupDir);
     }
 
     /* Getters and loaders */
@@ -149,20 +134,6 @@ public class WarnXS extends DREPlugin {
      */
     public void loadWConfig(File file) {
         wConfig = new WConfig(file);
-    }
-
-    /**
-     * @return the loaded instance of MessageConfig
-     */
-    public MessageConfig getMessageConfig() {
-        return messageConfig;
-    }
-
-    /**
-     * load / reload a new instance of MessageConfig
-     */
-    public void loadMessageConfig(File file) {
-        messageConfig = new MessageConfig(WMessages.class, file);
     }
 
     /**

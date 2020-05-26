@@ -16,12 +16,12 @@
  */
 package de.erethon.warnxs.command;
 
-import static io.github.dre2n.commons.chat.FatLetter.*;
-import io.github.dre2n.commons.chat.MessageUtil;
-import io.github.dre2n.commons.command.DRECommand;
-import io.github.dre2n.warnxs.WarnXS;
-import io.github.dre2n.warnxs.config.WMessages;
-import io.github.dre2n.warnxs.player.WPermissions;
+import static de.erethon.commons.chat.FatLetter.*;
+import de.erethon.commons.chat.MessageUtil;
+import de.erethon.commons.command.DRECommand;
+import de.erethon.warnxs.WarnXS;
+import de.erethon.warnxs.config.WMessage;
+import de.erethon.warnxs.player.WPermission;
 import org.bukkit.command.CommandSender;
 
 /**
@@ -33,8 +33,8 @@ public class MainCommand extends DRECommand {
 
     public MainCommand() {
         setCommand("main");
-        setHelp(WMessages.HELP_CMD_MAIN.getMessage());
-        setPermission(WPermissions.MAIN.getNode());
+        setHelp(WMessage.HELP_CMD_MAIN.getMessage());
+        setPermission(WPermission.MAIN.getNode());
         setPlayerCommand(true);
         setConsoleCommand(true);
     }
@@ -46,8 +46,8 @@ public class MainCommand extends DRECommand {
         MessageUtil.sendCenteredMessage(sender, "&4" + W[2] + A[2] + R[2] + N[2]);
         MessageUtil.sendCenteredMessage(sender, "&4" + W[3] + A[3] + R[3] + N[3]);
         MessageUtil.sendCenteredMessage(sender, "&4" + W[4] + A[4] + R[4] + N[4]);
-        MessageUtil.sendCenteredMessage(sender, "&b&l######## " + WMessages.CMD_MAIN_WELCOME.getMessage() + " &3v" + plugin.getDescription().getVersion() + " &b&l########");
-        MessageUtil.sendCenteredMessage(sender, WMessages.CMD_MAIN_HELP.getMessage());
+        MessageUtil.sendCenteredMessage(sender, "&b&l######## " + WMessage.CMD_MAIN_WELCOME.getMessage() + " &3v" + plugin.getDescription().getVersion() + " &b&l########");
+        MessageUtil.sendCenteredMessage(sender, WMessage.CMD_MAIN_HELP.getMessage());
         MessageUtil.sendCenteredMessage(sender, "&7\u00a92016-2020 Daniel Saukel; licensed under GPLv3.");
     }
 

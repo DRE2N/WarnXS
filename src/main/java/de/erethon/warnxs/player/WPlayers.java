@@ -16,7 +16,7 @@
  */
 package de.erethon.warnxs.player;
 
-import io.github.dre2n.warnxs.WarnXS;
+import de.erethon.warnxs.WarnXS;
 import java.io.File;
 import java.util.concurrent.CopyOnWriteArrayList;
 import org.bukkit.Bukkit;

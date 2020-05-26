@@ -16,13 +16,13 @@
  */
 package de.erethon.warnxs.command;
 
-import io.github.dre2n.commons.chat.MessageUtil;
-import io.github.dre2n.commons.command.DRECommand;
-import io.github.dre2n.commons.misc.NumberUtil;
-import io.github.dre2n.warnxs.WarnXS;
-import io.github.dre2n.warnxs.config.WMessages;
-import io.github.dre2n.warnxs.player.WPermissions;
-import io.github.dre2n.warnxs.player.WPlayer;
+import de.erethon.commons.chat.MessageUtil;
+import de.erethon.commons.command.DRECommand;
+import de.erethon.commons.misc.NumberUtil;
+import de.erethon.warnxs.WarnXS;
+import de.erethon.warnxs.config.WMessage;
+import de.erethon.warnxs.player.WPermission;
+import de.erethon.warnxs.player.WPlayer;
 import java.util.Collections;
 import java.util.Map;
 import org.bukkit.Bukkit;
@@ -40,8 +40,8 @@ public class AddCommand extends DRECommand {
         setCommand("add");
         setMinArgs(-1);
         setMaxArgs(-1);
-        setHelp(WMessages.HELP_CMD_ADD.getMessage());
-        setPermission(WPermissions.ADD.getNode());
+        setHelp(WMessage.HELP_CMD_ADD.getMessage());
+        setPermission(WPermission.ADD.getNode());
         setPlayerCommand(true);
         setConsoleCommand(false);
     }
@@ -55,7 +55,7 @@ public class AddCommand extends DRECommand {
         Player mod = (Player) sender;
         WPlayer player = plugin.getWPlayers().getByName(args[1]);
         if (player == null) {
-            MessageUtil.sendMessage(sender, WMessages.ERROR_NO_SUCH_PLAYER.getMessage(args[1]));
+            MessageUtil.sendMessage(sender, WMessage.ERROR_NO_SUCH_PLAYER.getMessage(args[1]));
             return;
         }
 
@@ -79,9 +79,9 @@ public class AddCommand extends DRECommand {
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replaceAll("<player>", player.getName()));
         }
 
-        MessageUtil.sendMessage(sender, WMessages.CMD_ADD_SUCCESS.getMessage(player.getName(), String.valueOf(player.getPenaltyPoints())));
-        if (!WMessages.CMD_ADD_BROADCAST.getMessage().isEmpty()) {
-            MessageUtil.broadcastMessage(WMessages.CMD_ADD_BROADCAST.getMessage(mod.getName(), player.getName(), reason));
+        MessageUtil.sendMessage(sender, WMessage.CMD_ADD_SUCCESS.getMessage(player.getName(), String.valueOf(player.getPenaltyPoints())));
+        if (!WMessage.CMD_ADD_BROADCAST.getMessage().isEmpty()) {
+            MessageUtil.broadcastMessage(WMessage.CMD_ADD_BROADCAST.getMessage(mod.getName(), player.getName(), reason));
         }
     }
 
