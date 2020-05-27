@@ -1,6 +1,7 @@
 name: WarnXS
 main: de.erethon.warnxs.WarnXS
 version: ${project.version}${buildNo}
+api-version: 1.13
 author: Daniel Saukel
 description: ${project.description}
 website: ${project.url}
