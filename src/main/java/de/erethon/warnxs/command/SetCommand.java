@@ -61,6 +61,7 @@ public class SetCommand extends DRECommand {
         }
 
         player.getData().updatePoints(amount);
+        player.getData().serialize();
 
         MessageUtil.sendMessage(sender, WMessage.CMD_SET_SUCCESS.getMessage(player.getName(), String.valueOf(amount)));
     }
