@@ -39,10 +39,11 @@ public enum WPermission {
     MAIN("main", TRUE),
     RELOAD("reload", OP),
     REMOVE("remove", OP),
+    SET("set", OP),
     // Kits
     ADMINISTRATOR("*", OP),
     PLAYER("player", TRUE, HELP, LIST, MAIN),
-    MOD("mod", OP, PLAYER, LIST_OTHERS, ADD, REMOVE);
+    MOD("mod", OP, PLAYER, LIST_OTHERS, ADD, REMOVE, SET);
 
     public static final String PREFIX = "wxs.";
 

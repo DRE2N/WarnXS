@@ -32,6 +32,7 @@ public class WCommands extends DRECommandCache {
     public static MainCommand MAIN = new MainCommand();
     public static ReloadCommand RELOAD = new ReloadCommand();
     public static RemoveCommand REMOVE = new RemoveCommand();
+    public static SetCommand SET = new SetCommand();
 
     public WCommands(DREPlugin plugin) {
         super("warnxs", plugin,
@@ -40,7 +41,8 @@ public class WCommands extends DRECommandCache {
                 LIST,
                 MAIN,
                 RELOAD,
-                REMOVE
+                REMOVE,
+                SET
         );
     }
 

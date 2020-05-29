@@ -13,6 +13,8 @@ cmd:
     click: "&3&oClick at one of the entries to remove it!"
     fail: "&4The player &3&v1 &4does not have a warning at index number &3&v2&4."
     success: "&3Successfully removed the warning."
+  set: 
+    success: "&4&v1 &3now has &4&v2&3 pp."
 error: 
   noSuchPlayer: "&4The player &3&v1 &4does not exist!"
 help: 
@@ -23,8 +25,7 @@ help:
     main: "/w - General status information."
     reload: "/w reload - Reloads the plugin."
     remove: "/w remove [player] ([index]) - Removes a player's warn entry. Leave the index number empty to select."
-log: 
-  newPlayerData: "&3A new player data file has been created and saved as &v1."
+    set: "/w set [player] [amount] - Force-modifies the pp a player has."
 newWarnings: 
   click: "&3 >> &4[Click here to see a list of your warnings.]"
   cmd: "&3 >> &4[Use /w list to see a list of your warnings.]"
