@@ -42,7 +42,6 @@ public enum WMessage implements Message {
     HELP_CMD_MAIN("help.cmd.main"),
     HELP_CMD_RELOAD("help.cmd.reload"),
     HELP_CMD_REMOVE("help.cmd.remove"),
-    LOG_NEW_PLAYER_DATA("log.newPlayerData"),
     NEW_WARNINGS_ONE("newWarnings.one"),
     NEW_WARNINGS_MULTIPLE("newWarnings.multiple"),
     NEW_WARNINGS_CLICK("newWarnings.click"),

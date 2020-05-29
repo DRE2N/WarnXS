@@ -16,10 +16,9 @@
  */
 package de.erethon.warnxs.player;
 
-import de.erethon.commons.chat.MessageUtil;
 import de.erethon.commons.config.DREConfig;
+import de.erethon.commons.player.PlayerUtil;
 import de.erethon.warnxs.WarnXS;
-import de.erethon.warnxs.config.WMessage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -44,10 +43,6 @@ public class WPlayerData extends DREConfig {
 
     public WPlayerData(File file) {
         super(file, CONFIG_VERSION);
-
-        if (initialize) {
-            initialize();
-        }
         load();
     }
 
@@ -119,21 +114,8 @@ public class WPlayerData extends DREConfig {
 
     /* Serialization */
     @Override
-    public void initialize() {
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-                MessageUtil.log(plugin, WMessage.LOG_NEW_PLAYER_DATA.getMessage(file.getName()));
-            } catch (IOException exception) {
-                exception.printStackTrace();
-            }
-        }
-        save();
-    }
-
-    @Override
     public void load() {
-        lastName = config.getString("lastName", lastName);
+        lastName = config.getString("lastName", PlayerUtil.getNameFromUniqueId(getFile().getName().replace(".yml", "")));
         timeLastPlayed = config.getLong("timeLastPlayed", timeLastPlayed);
         timeLastWarned = config.getLong("timeLastWarned", timeLastWarned);
         pointsLastWarned = config.getInt("pointsLastWarned", pointsLastWarned);
@@ -144,8 +126,7 @@ public class WPlayerData extends DREConfig {
         }
     }
 
-    @Override
-    public void save() {
+    public void serialize() {
         config.set("lastName", lastName);
         config.set("timeLastPlayed", timeLastPlayed);
         config.set("timeLastWarned", timeLastWarned);

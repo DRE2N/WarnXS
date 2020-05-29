@@ -93,7 +93,7 @@ public class RemoveCommand extends DRECommand {
 
         if (player.getData().getReasons().size() > index) {
             player.getData().getReasons().remove(index);
-            player.getData().save();
+            player.getData().serialize();
             MessageUtil.sendMessage(sender, WMessage.CMD_REMOVE_SUCCESS.getMessage());
         } else {
             MessageUtil.sendMessage(sender, WMessage.CMD_REMOVE_FAIL.getMessage(player.getName(), String.valueOf(index)));

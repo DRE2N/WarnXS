@@ -116,7 +116,7 @@ public class WPlayer {
         int pp = getPenaltyPoints() + amount;
         data.getReasons().add(new WReason(reason, new Date(), amount, mod.getUniqueId(), player != null));
         data.updatePoints(pp);
-        data.save();
+        data.serialize();
 
         Map<Integer, String[]> cmdMap = plugin.getWConfig().getCommands();
         String[] cmds;
@@ -126,7 +126,9 @@ public class WPlayer {
             cmds = cmdMap.get(pp);
         }
         for (String cmd : cmds) {
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd.replace("<player>", player.getName()).replace("<reason>", reason));
+            if (cmd != null) {
+                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd.replace("<player>", getName()).replace("<reason>", reason));
+            }
         }
         return pp;
     }

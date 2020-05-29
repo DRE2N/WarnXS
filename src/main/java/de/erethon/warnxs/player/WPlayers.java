@@ -95,7 +95,7 @@ public class WPlayers {
         WPlayerData data = player.getData();
         data.setLastName(player.getName());
         data.setTimeLastPlayed(System.currentTimeMillis());
-        data.save();
+        data.serialize();
     }
 
     /* Persistence */
@@ -104,7 +104,7 @@ public class WPlayers {
      */
     public void saveAll() {
         for (WPlayer wPlayer : wPlayers) {
-            wPlayer.getData().save();
+            wPlayer.getData().serialize();
         }
     }
 
