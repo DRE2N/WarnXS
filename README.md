@@ -1,6 +1,6 @@
-![WarnXS](http://feuerstern.bplaced.net/ressourcen/logos/WarnXS.png)
+![WarnXS](http://erethon.de/resources/logos/WarnXS.png)
 
-[![Download](http://feuerstern.bplaced.net/ressourcen/buttons/Download.png)](http://feuerstern.bplaced.net/repo/io/github/dre2n/warnxs)
+[![Download](http://erethon.de/resources/buttons/Download.png)](http://erethon.de/repo/de/erethon/warnxs)
 
 # What is WarnXS?
 WarnXS is a punishment plugin.
