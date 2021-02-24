@@ -26,6 +26,14 @@ commands:
 deathPenalty: "ban <player>"
 # The time in hours until a penalty point gets removed
 removeTime: 168
+# This is the message a banned player sees above the list
+# of warnings. Use &nl for a new line.
+infoMessage: Add your message here!
+# Remove PPs depending on how many PPs the player already has
+removeTimeDelays:
+  '8': 24
+  '9': 72
+  '10': 168
 ```
 
 ## Commands and permissions
