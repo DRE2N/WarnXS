@@ -1,4 +1,10 @@
-cmd: 
+ban:
+  info:
+    unlimited: "Unlimited"
+    warnings: "&c&lWarns:"
+    duration: "&6Duration: &v1"
+    entry: "&6 - &7&o&v1 &8| &c&v2 &7PPs"
+cmd:
   add: 
     broadcast: "&4&v1 &3has warned &4&v2&3. Reason: &4&v3"
     success: "&3You successfully warned &4&v1&3. The player has &4&v2&3 pp."

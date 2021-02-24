@@ -26,6 +26,10 @@ import de.erethon.commons.config.Message;
  */
 public enum WMessage implements Message {
 
+    BAN_INFO_UNLIMITED("ban.info.unlimited"),
+    BAN_INFO_WARNINGS("ban.info.warnings"),
+    BAN_INFO_ENTRY("ban.info.entry"),
+    BAN_INFO_DURATION("ban.info.duration"),
     CMD_ADD_BROADCAST("cmd.add.broadcast"),
     CMD_ADD_SUCCESS("cmd.add.success"),
     CMD_LIST_PENALTY_POINTS("cmd.list.penaltyPoints"),

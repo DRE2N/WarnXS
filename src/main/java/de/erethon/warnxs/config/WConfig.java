@@ -39,6 +39,7 @@ public class WConfig extends DREConfig {
     private String language = "english";
     private Map<Integer, String[]> commands = new HashMap<>();
     private String deathPenalty = "";
+    private String infoMessage = "Add your info message here!";
     private long removeTime = HOUR * 24 * 7;
     private Map<Integer, Long> removeTimeDelays = new HashMap<>();
 
@@ -91,6 +92,14 @@ public class WConfig extends DREConfig {
         return removeTimeDelays;
     }
 
+    /**
+     * @return
+     * the message displayed at the top of the info page a banned player gets
+     */
+    public String getInfoMessage() {
+        return infoMessage;
+    }
+
     /* Actions */
     @Override
     public void initialize() {
@@ -113,6 +122,11 @@ public class WConfig extends DREConfig {
         if (!config.contains("removeTimeDelays")) {
             config.createSection("removeTimeDelays");
         }
+        if (!config.contains("infoMessage")) {
+            config.set("infoMessage", infoMessage);
+        }
+
+
 
         save();
     }
@@ -152,6 +166,10 @@ public class WConfig extends DREConfig {
                     MessageUtil.log(DREPlugin.getInstance(), "Invalid removeTimeDelays value: " + key);
                 }
             }
+        }
+
+        if (config.contains("infoMessage")) {
+            infoMessage = config.getString("infoMessage");
         }
     }
 

@@ -17,12 +17,18 @@
 package de.erethon.warnxs.listener;
 
 import de.erethon.warnxs.WarnXS;
+import de.erethon.warnxs.config.WMessage;
 import de.erethon.warnxs.player.WPlayer;
 import de.erethon.warnxs.player.WPlayers;
+import de.erethon.warnxs.player.WReason;
+import org.bukkit.BanEntry;
+import org.bukkit.BanList;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 /**
@@ -50,6 +56,34 @@ public class PlayerListener implements Listener {
     public void onQuit(PlayerQuitEvent event) {
         WPlayer wPlayer = wPlayers.getByPlayer(event.getPlayer());
         wPlayers.removePlayer(wPlayer);
+    }
+
+    @EventHandler
+    public void onLogin(PlayerLoginEvent event) {
+        Player player = event.getPlayer();
+        if(event.getResult() != PlayerLoginEvent.Result.KICK_BANNED) {
+            return;
+        }
+        String infoMessage = plugin.getWConfig().getInfoMessage().replace("&nl", "\n");
+        String expirationDate = "";
+        for (BanEntry entry : Bukkit.getBanList(BanList.Type.NAME).getBanEntries()) {
+            if (entry.getTarget().equals(player.getName())) {
+                if (entry.getExpiration() == null) {
+                    expirationDate = WMessage.BAN_INFO_UNLIMITED.getMessage();
+                    break;
+                }
+                expirationDate = entry.getExpiration().toString();
+                break;
+            }
+        }
+        String expiration = WMessage.BAN_INFO_DURATION.getMessage(expirationDate);
+        StringBuilder lastWarnMessages = new StringBuilder();
+        for (WReason reason : wPlayers.getByName(player.getName()).getData().getReasons()) {
+            lastWarnMessages.append(WMessage.BAN_INFO_ENTRY.getMessage(reason.getCase(), String.valueOf(reason.getPenaltyPoints()))).append("\n");
+        }
+        String kickMessage = infoMessage + "\n" + expiration + "\n" + WMessage.BAN_INFO_WARNINGS.getMessage() + "\n" + lastWarnMessages;
+        event.setKickMessage(kickMessage);
+
     }
 
 }
